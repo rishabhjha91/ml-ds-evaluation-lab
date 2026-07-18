@@ -1,0 +1,50 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "mldseval"
+version = "0.1.0"
+description = "A small, reproducible machine-learning and data-science evaluation lab: modelling, calibration, error analysis, a FastAPI inference service, and SQL analytics (funnel, cohort, A/B testing, data quality)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [{ name = "Rishabh Jha" }]
+keywords = ["machine-learning", "data-science", "evaluation", "mlops", "fastapi", "duckdb"]
+dependencies = [
+    "numpy>=1.24",
+    "pandas>=2.0",
+    "scipy>=1.11",
+    "scikit-learn>=1.3",
+    "joblib>=1.3",
+    "duckdb>=0.10",
+    "fastapi>=0.110",
+    "uvicorn>=0.27",
+    "pydantic>=2.5",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0",
+    "httpx>=0.27",
+    "ruff>=0.4",
+]
+
+[project.scripts]
+mldseval-train = "mldseval.cli:train_entrypoint"
+mldseval-analytics = "mldseval.cli:analytics_entrypoint"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "UP", "B"]
+ignore = ["E501"]
+
+[tool.pytest.ini_options]
+addopts = "-q"
+testpaths = ["tests"]
