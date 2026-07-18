@@ -1,5 +1,9 @@
 # ML & DS Evaluation Lab
 
+[![CI](https://github.com/rishabhjha91/ml-ds-evaluation-lab/actions/workflows/ci.yml/badge.svg)](https://github.com/rishabhjha91/ml-ds-evaluation-lab/actions/workflows/ci.yml)
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![License: MIT](https://img.shields.io/badge/license-MIT-green)
+
 A small, fully reproducible lab that shows how I build **and evaluate** a
 supervised machine-learning model end to end, serve it behind an API, and run
 the kind of **data-science analytics** (funnel, cohort, A/B test, data-quality
@@ -81,4 +85,4 @@ reports/          MODEL_CARD.md
 
 ## License
 
-MIT — see `LICENSE`.
+MIT - see `LICENSE`.
