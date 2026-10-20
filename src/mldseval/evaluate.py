@@ -59,6 +59,17 @@ def error_analysis(y_true, y_prob, top_k: int = 10) -> list[dict]:
     """Return the most confident *wrong* predictions for manual inspection."""
     y_true = np.asarray(y_true)
     y_prob = np.asarray(y_prob)
+
+    if y_true.ndim != 1 or y_prob.ndim != 1:
+        raise ValueError("y_true and y_prob must be one-dimensional")
+    if y_true.shape != y_prob.shape:
+        raise ValueError(
+            "y_true and y_prob must have the same length, "
+            f"got {len(y_true)} and {len(y_prob)}"
+        )
+    if top_k < 0:
+        raise ValueError("top_k must be non-negative")
+
     y_pred = (y_prob >= 0.5).astype(int)
     wrong = np.where(y_pred != y_true)[0]
     if wrong.size == 0:

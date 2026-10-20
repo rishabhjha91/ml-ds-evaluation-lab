@@ -1,4 +1,5 @@
 import numpy as np
+import pytest
 
 from mldseval.evaluate import best_threshold, compute_metrics, error_analysis
 
@@ -28,3 +29,20 @@ def test_error_analysis_finds_mistakes():
     cases = error_analysis(y_true, y_prob, top_k=5)
     assert len(cases) == 2
     assert cases[0]["index"] in (0, 1)
+
+
+
+
+def test_error_analysis_rejects_mismatched_lengths():
+    with pytest.raises(ValueError, match="same length"):
+        error_analysis(np.array([0, 1]), np.array([0.2]), top_k=1)
+
+
+def test_error_analysis_rejects_negative_top_k():
+    with pytest.raises(ValueError, match="non-negative"):
+        error_analysis(np.array([0, 1]), np.array([0.2, 0.8]), top_k=-1)
+
+
+def test_error_analysis_returns_empty_for_zero_top_k():
+    result = error_analysis(np.array([0, 1]), np.array([0.9, 0.1]), top_k=0)
+    assert result == []
